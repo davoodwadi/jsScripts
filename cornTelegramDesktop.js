@@ -21,7 +21,8 @@
   console.info(`TELEGRAM refresh in ${timeoutAmount} seconds`);
   console.info(location);
   const is_mobile = navigator.userAgentData.mobile;
-
+  console.info("IS_MOBILE: ", is_mobile)
+  
   // Function to generate a random delay between min and max milliseconds
   function getRandomDelay(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
