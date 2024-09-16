@@ -17,6 +17,28 @@ Object.defineProperty(navigator, 'language', {
     get: function () { return 'en-US'; }
 });
 
+
+Object.defineProperty(navigator, 'userAgentData', {
+    get: function () {
+        return {
+            brands: [
+                { brand: 'Google Chrome', version: '107' },
+                { brand: 'Chromium', version: '107' },
+                { brand: 'Mobile Safari', version: '16.6' }
+            ],
+            mobile: true,
+            platform: 'iOS',
+            getHighEntropyValues: async function () {
+                return {
+                    platform: 'iOS',
+                    model: 'iPhone',
+                    ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1'
+                };
+            }
+        };
+    }
+});
+
 function battler() {
     const fightButton = document.getElementsByClassName("rIq5E8Rv9JT2TsqMm8uZ")[0];
     const startButton = document.getElementsByClassName("xCi4i7kqXSqWLw4LySAx")[0];
@@ -51,3 +73,8 @@ function stopbattler() {
 
 // Call this function to stop the battler
 // stopbattler(); // Uncomment this line when you want to stop
+
+
+// main screen battle
+// const mainBattle = document.getElementsByClassName('ant-row pTCf9jgOTECbE5v8Q5cq css-zg0ahe')[3]
+
