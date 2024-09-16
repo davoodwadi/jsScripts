@@ -16,3 +16,24 @@ Object.defineProperty(navigator, 'maxTouchPoints', {
 Object.defineProperty(navigator, 'language', {
     get: function () { return 'en-US'; }
 });
+
+Object.defineProperty(navigator, 'userAgentData', {
+    get: function () {
+        return {
+            brands: [
+                { brand: 'Google Chrome', version: '107' },
+                { brand: 'Chromium', version: '107' },
+                { brand: 'Mobile Safari', version: '16.6' }
+            ],
+            mobile: true,
+            platform: 'iPhone',
+            getHighEntropyValues: async function () {
+                return {
+                    platform: 'iPhone',
+                    model: 'iPhone',
+                    ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1'
+                };
+            }
+        };
+    }
+});
