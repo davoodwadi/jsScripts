@@ -1,0 +1,98 @@
+// with timeout to reduce slowdown
+Object.defineProperty(navigator, "userAgent", {
+  get: function () {
+    return "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1";
+  },
+});
+Object.defineProperty(navigator, "platform", {
+  get: function () {
+    return "iPhone";
+  },
+});
+Object.defineProperty(navigator, "vendor", {
+  get: function () {
+    return "Apple Computer, Inc.";
+  },
+});
+Object.defineProperty(navigator, "appVersion", {
+  get: function () {
+    return "5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1";
+  },
+});
+Object.defineProperty(navigator, "maxTouchPoints", {
+  get: function () {
+    return 5;
+  },
+});
+Object.defineProperty(navigator, "language", {
+  get: function () {
+    return "en-US";
+  },
+});
+
+let timeoutId; // This will hold the ID of the current timeout
+
+function getCurrentTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
+}
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function clickButton(button) {
+  const delay = 0 + Math.random() * 500;
+  console.log("delay: ", delay);
+  await wait(delay);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      button.click();
+      console.log(`Clicked ${button.textContent} button`);
+      if (button.textContent === "START") {
+        console.log(
+          `****************\n********************\n${getCurrentTime()}\n*****************\n*********************`
+        );
+      }
+
+      resolve();
+    }, delay);
+  });
+}
+
+async function battler() {
+  const buttons = [
+    document.getElementsByClassName("rIq5E8Rv9JT2TsqMm8uZ")[0],
+    document.getElementsByClassName("xCi4i7kqXSqWLw4LySAx")[0],
+    document.getElementsByClassName("c__Ec6W2GQLbn6MNtFmq")[0],
+    document.getElementsByClassName("Xqjvq9pvIzd2e_Zw1sq3")[0],
+  ];
+  const delay = 0 + Math.random() * 1000;
+  // Check if all buttons are undefined
+  const allUndefined = buttons.every((button) => !button);
+  if (allUndefined) {
+    await wait(delay);
+    console.log(`no buttons: waiting ${delay}ms`);
+  } else {
+    for (const button of buttons) {
+      if (button) {
+        await clickButton(button);
+      }
+    }
+  }
+
+  // Start the next timeout only after the current one has completed
+  const intervalDelay = 0 + Math.random() * 1000;
+  console.log("Next battler in: ", intervalDelay);
+  timeoutId = setTimeout(battler, intervalDelay); // Store the timeout ID
+}
+
+// Start the first execution
+battler();
+
+// Function to stop the battler
+function stopbattler() {
+  clearTimeout(timeoutId); // Now using timeoutId to clear the timeout
+  console.log("battler stopped");
+}
