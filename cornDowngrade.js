@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Ton wallet verify everyone
+// @name         Ton wallet down
 // @namespace    http://www.google.com/
 // @version      2024-09-03
 // @description  ton
@@ -19,8 +19,42 @@
   window.console.log = () => {};
   window.console.info = () => {};
   window.console.debug = () => {};
-  // with timeout to reduce slowdown
 
+  const is_windows = navigator.userAgentData.platform === "Windows"
+  // with timeout to reduce slowdown
+  if (is_windows){
+    Object.defineProperty(navigator, "userAgent", {
+      get: function () {
+        return "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1";
+      },
+    });
+    Object.defineProperty(navigator, "platform", {
+      get: function () {
+        return "iPhone";
+      },
+    });
+    Object.defineProperty(navigator, "vendor", {
+      get: function () {
+        return "Apple Computer, Inc.";
+      },
+    });
+    Object.defineProperty(navigator, "appVersion", {
+      get: function () {
+        return "5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1";
+      },
+    });
+    Object.defineProperty(navigator, "maxTouchPoints", {
+      get: function () {
+        return 5;
+      },
+    });
+    Object.defineProperty(navigator, "language", {
+      get: function () {
+        return "en-US";
+      },
+    });
+  }
+  
   const startTime = new Date();
 
   console.warn(`hello: startTime: ${startTime}`);
@@ -146,30 +180,11 @@
       //   logState(actualStartButton.textContent);
       // check to see cards are on the board. if not add them
       //   await addCards(cardNumbers);
-      //
+      // 
+      // No check; just click!
       await wait(500);
-      if (countCards() === 5) {
-        actualStartButton.click();
-      } else {
-        await wait(20000);
-        console.warn("WAITING 20 seconds more...");
-        if (countCards() === 5) {
-          actualStartButton.click();
-        } else {
-          const currentCards = countCards();
-          const innerstartButtons = document.getElementsByClassName(
-            "xCi4i7kqXSqWLw4LySAx"
-          ); // "START"
-          const inneractualStartButton = Array.from(innerstartButtons).filter(
-            (b) => b.textContent === "START"
-          )[0];
-          if (inneractualStartButton && currentCards !== 5) {
-            console.warn("INSUFFICIENT CARDS PRESENT: ", currentCards);
-            location.reload();
-          }
-        }
-      }
-
+      actualStartButton.click();
+    
       lastTouchTime = new Date();
     }
     const homeFightButton = document.getElementsByClassName(
