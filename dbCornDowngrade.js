@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Ton wallet down
+// @name         dbLog Ton wallet down dbLog
 // @namespace    http://www.google.com/
 // @version      2024-09-03
 // @description  ton
@@ -133,6 +133,44 @@
       );
     }
   }
+  function getGameInfo() {
+    const now = new Date();
+    const duration = (now - lastTouchTime) / 1000;
+    const bottomBox = document.querySelectorAll(".elR3vGHDWoL2X5qzN71w");
+    const myRatingChange = parseInt(
+      bottomBox[bottomBox.length - 1].textContent.replace(" ", ""),
+      10
+    );
+    const gameInfo = {
+      duration: duration, // float
+      result: document.querySelector(".X5eEAJqYJsGJOBKLuE9j span").textContent, // DEFEAT! or VICTORY!
+      myRating: parseInt(
+        document.querySelector(
+          ".irvDPo1HyZwDFZGmLsSI .b3EnjXPtsgdI3kotdZM9 span"
+        ).textContent,
+        10
+      ),
+      theirRating: parseInt(
+        document.querySelector(
+          ".wXXdrg_EEPzrST69dIFf .b3EnjXPtsgdI3kotdZM9 span"
+        ).textContent,
+        10
+      ),
+      myRatingChange: myRatingChange,
+      theirName: document.querySelector(
+        ".wXXdrg_EEPzrST69dIFf .ilQ7yHtcqhQhxhAQhDTw span"
+      ).textContent,
+      date: now.toISOString(),
+    };
+    console.warn(JSON.stringify(gameInfo));
+    fetch("http://localhost:3000/add-battle", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(gameInfo), // Send the collected messages
+    });
+  }
 
   let lastTouchTime = new Date();
   const cardNumbers = [24, 31, 25, 35, 33];
@@ -148,7 +186,7 @@
     if (fightButton) {
       //   logState("F");
       //   logState(fightButton.textContent);
-      // const gameInfo = getGameInfo();
+      const gameInfo = getGameInfo();
 
       fightButton.click();
     }
