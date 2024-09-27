@@ -17,6 +17,27 @@ Object.defineProperty(navigator, 'maxTouchPoints', {
 Object.defineProperty(navigator, 'language', {
     get: function () { return 'en-US'; }
 });
+
+Object.defineProperty(navigator, 'userAgentData', {
+    get: function () {
+        return {
+            brands: [
+                { brand: 'Google Chrome', version: '107' },
+                { brand: 'Chromium', version: '107' },
+                { brand: 'Mobile Safari', version: '16.6' }
+            ],
+            mobile: true,
+            platform: 'iPhone',
+            getHighEntropyValues: async function () {
+                return {
+                    platform: 'iPhone',
+                    model: 'iPhone',
+                    ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1'
+                };
+            }
+        };
+    }
+});
 //
 
 function coinTouch(element) {
@@ -60,7 +81,7 @@ function randomInterval(min, max) {
 
 // version 2 - fixing stack overflow
 function touchElementWithRandomIntervals(element) {
-    const energyLeft = parseFloat(document.getElementsByClassName('IconText--content')[2].textContent.split(' / ')[0].replace(',', ''));
+    const energyLeft = parseFloat(document.getElementsByClassName('IconText--content')[3].textContent.split(' / ')[0].replace(',', ''));
 
     if (energyLeft > 11 && !isBlocked) {
         if (energyLeft % 1000 === 0) {
