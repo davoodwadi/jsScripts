@@ -15,6 +15,17 @@
   // Timeout to refresh page after 1 hour
   const timeoutAmount = 60 * 60 * 1; // refresh time in seconds
 
+  Object.defineProperty(navigator, "platform", {
+    get: function () {
+      return "Android";
+    },
+  });
+  Object.defineProperty(navigator, "maxTouchPoints", {
+    get: function () {
+      return 5;
+    },
+  });
+  
   const startTime = new Date();
   //   console.log("*".repeat(50));
   console.info(`hello Telegram: startTime: ${startTime}`);
