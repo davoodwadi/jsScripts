@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         dbLog Ton wallet down dbLog
+// @name         dbLog Ton wallet down TURSO
 // @namespace    http://www.google.com/
 // @version      2024-09-03
 // @description  ton
@@ -136,6 +136,7 @@
   function getGameInfo() {
     const url = "https://cornbattles-davoodwadi.turso.io/v2/pipeline";
     const authToken = "<token>";
+    const table = "battles";
 
     const now = new Date();
     const duration = (now - lastTouchTime) / 1000;
@@ -160,7 +161,7 @@
       bottomBox[bottomBox.length - 1].textContent.replace(" ", ""),
       10
     );
-    const query = `INSERT INTO test (duration, result, myRating, theirRating, myRatingChange, theirName, date)
+    const query = `INSERT INTO ${table} (duration, result, myRating, theirRating, myRatingChange, theirName, date)
 VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}');`;
 
     const gameInfo = {
