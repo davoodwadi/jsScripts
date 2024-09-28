@@ -8,7 +8,7 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
-
+ 
 (function () {
   "use strict";
   const tooLongTolerance = 240; // seconds
@@ -173,9 +173,9 @@
   }
 
   let lastTouchTime = new Date();
-  const cardNumbers = [24, 31, 25, 35, 33];
-  let started = false;
-  let addedNode;
+  // const cardNumbers = [24, 31, 25, 35, 33];
+  // let started = false;
+  // let addedNode;
   // Set up a MutationObserver to monitor changes in the body
   const observer = new MutationObserver(async (mutationsList, observer) => {
     tooLongRefresh();

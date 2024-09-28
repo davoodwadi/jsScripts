@@ -15,7 +15,7 @@ const createTableSQL = `
        myRatingChange INTEGER,
        theirName TEXT,
        date TEXT
-   )`;
+   )`; 
 
 // Execute the SQL statement to create the table
 db.run(createTableSQL, (err) => {
@@ -64,20 +64,6 @@ VALUES (?, ?, ?, ?, ?, ?, ?)`;
         });
     }
   });
-  // Prepare the INSERT statement
-  //   let stmt = db.prepare("INSERT INTO battles (name, idx) VALUES (?, ?)");
-
-  // Run the prepared statement with data from the POST request
-  //   stmt.run(name, idx, function (err) {
-  //     if (err) {
-  //       return res.status(500).json({ error: "Failed to insert data" });
-  //     }
-
-  // Send success response with the newly inserted row's ID
-  // res.json({ message: "Data inserted", id: this.lastID });
-  //   });
-
-  //   stmt.finalize();
 });
 
 // Route to retrieve all entries
