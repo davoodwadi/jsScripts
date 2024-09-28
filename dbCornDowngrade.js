@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         dbLog Ton wallet down dbLog
+// @name         dbLog Ton wallet down TURSO
 // @namespace    http://www.google.com/
 // @version      2024-09-03
 // @description  ton
@@ -134,35 +134,59 @@
     }
   }
   function getGameInfo() {
+    const url = "https://cornbattles-davoodwadi.turso.io/v2/pipeline";
+    const authToken = "<token>";
+    const table = "battles";
+
     const now = new Date();
     const duration = (now - lastTouchTime) / 1000;
     const bottomBox = document.querySelectorAll(".elR3vGHDWoL2X5qzN71w");
+    const result = document.querySelector(
+      ".X5eEAJqYJsGJOBKLuE9j span"
+    ).textContent; // DEFEAT! or VICTORY!
+    const myRating = parseInt(
+      document.querySelector(".irvDPo1HyZwDFZGmLsSI .b3EnjXPtsgdI3kotdZM9 span")
+        .textContent,
+      10
+    );
+    const theirRating = parseInt(
+      document.querySelector(".wXXdrg_EEPzrST69dIFf .b3EnjXPtsgdI3kotdZM9 span")
+        .textContent,
+      10
+    );
+    const theirName = document.querySelector(
+      ".wXXdrg_EEPzrST69dIFf .ilQ7yHtcqhQhxhAQhDTw span"
+    ).textContent;
     const myRatingChange = parseInt(
       bottomBox[bottomBox.length - 1].textContent.replace(" ", ""),
       10
     );
+    const query = `INSERT INTO ${table} (duration, result, myRating, theirRating, myRatingChange, theirName, date)
+VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}');`;
+
     const gameInfo = {
       duration: duration, // float
-      result: document.querySelector(".X5eEAJqYJsGJOBKLuE9j span").textContent, // DEFEAT! or VICTORY!
-      myRating: parseInt(
-        document.querySelector(
-          ".irvDPo1HyZwDFZGmLsSI .b3EnjXPtsgdI3kotdZM9 span"
-        ).textContent,
-        10
-      ),
-      theirRating: parseInt(
-        document.querySelector(
-          ".wXXdrg_EEPzrST69dIFf .b3EnjXPtsgdI3kotdZM9 span"
-        ).textContent,
-        10
-      ),
+      result: result,
+      myRating: myRating,
+      theirRating: theirRating,
       myRatingChange: myRatingChange,
-      theirName: document.querySelector(
-        ".wXXdrg_EEPzrST69dIFf .ilQ7yHtcqhQhxhAQhDTw span"
-      ).textContent,
+      theirName: theirName,
       date: now.toISOString(),
     };
     console.warn(JSON.stringify(gameInfo));
+    fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requests: [
+          { type: "execute", stmt: { sql: query } },
+          { type: "close" },
+        ],
+      }),
+    });
     fetch("http://localhost:3000/add-battle", {
       method: "POST",
       headers: {
@@ -197,7 +221,8 @@
     // currently added: [24,31,25,35,33]
     // start from top to bottom
 
-    //
+    // <button id="unit1" class="VY1lF2QFgXoqcqfLXcNr wr4M7nfiVh6l9GmbKFiC"><div class="s5LnCEnt6ARco53vzyNf"></div></button>
+    // <button id="unit1" class="VY1lF2QFgXoqcqfLXcNr wr4M7nfiVh6l9GmbKFiC"><div class="s5LnCEnt6ARco53vzyNf"></div></button>
 
     // to remove a card:
     // <button id="unit1" class="VY1lF2QFgXoqcqfLXcNr wr4M7nfiVh6l9GmbKFiC"><div class="s5LnCEnt6ARco53vzyNf"></div></button>
