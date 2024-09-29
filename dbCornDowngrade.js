@@ -8,7 +8,7 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
- 
+
 (function () {
   "use strict";
   const formation = "berg80-scare100";
@@ -162,8 +162,8 @@
       bottomBox[bottomBox.length - 1].textContent.replace(" ", ""),
       10
     );
-    const query = `INSERT INTO ${table} (duration, result, myRating, theirRating, myRatingChange, theirName, date)
-VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}');`;
+    const query = `INSERT INTO ${table} (duration, result, myRating, theirRating, myRatingChange, theirName, date, formation)
+VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}', ${formation});`;
 
     const gameInfo = {
       duration: duration, // float
