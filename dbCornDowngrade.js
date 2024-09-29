@@ -11,7 +11,7 @@
 
 (function () {
   "use strict";
-  const formation = "berg80-scare100";
+  const formation = "singer98-berg80-blacklady90-scare100-batman80";
   const tooLongTolerance = 240; // seconds
   const intervalAmount = 240; // seconds
   const warnAmount = 80; // seconds
@@ -163,7 +163,7 @@
       10
     );
     const query = `INSERT INTO ${table} (duration, result, myRating, theirRating, myRatingChange, theirName, date, formation)
-VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}', ${formation});`;
+VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}, '${theirName}', '${now.toISOString()}', '${formation}');`;
 
     const gameInfo = {
       duration: duration, // float
