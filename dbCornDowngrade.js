@@ -11,6 +11,7 @@
 
 (function () {
   "use strict";
+  const formation = "berg80-scare100";
   const tooLongTolerance = 240; // seconds
   const intervalAmount = 240; // seconds
   const warnAmount = 80; // seconds
@@ -172,6 +173,7 @@ VALUES (${duration}, '${result}', ${myRating}, ${theirRating}, ${myRatingChange}
       myRatingChange: myRatingChange,
       theirName: theirName,
       date: now.toISOString(),
+      formation: formation,
     };
     console.warn(JSON.stringify(gameInfo));
     fetch(url, {
